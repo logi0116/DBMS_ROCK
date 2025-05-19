@@ -246,3 +246,59 @@ SELECT ENAME,JOB,DEPTNO FROM EMP
 WHERE JOB = 'CLERK'
 AND
 SELECT ENAME,JOB,DEPTNO FROM EMP WHERE DEPTNO = 20;
+
+
+
+--퀴즈1 급여가 2500 이상인 사원들의 이름과 급여를 조회하기
+SELECT ENAME, SAL FROM EMP WHERE SAL >= 2500;
+
+
+
+SELECT * FROM emp WHERE job = 'CLERK' OR WHERE job = 'SALESMAN'; --시도 1 코드 WHERE를 굳이 2번 쓸 필요 없음.
+SELECT * FROM emp WHERE job = 'CLERK' OR job = 'SALESMAN'; --시도 1 코드 WHERE를 굳이 2번 쓸 필요 없음.
+SELECT * FROM emp WHERE DEPTNO = 30 OR job = 'SALESMAN'; 
+
+--퀴즈 2 부서번호가 10 또는 20이 이면서, 직무가 'CLERK'인 사원 조회하기
+SELECT * FROM emp WHERE DEPTNO in(10,20)
+OR
+JOB = 'CLERK';
+
+SELECT * FROM EMP WHERE DEPTNO = 10 OR DEPTNO = 20 OR JOB = 'CLERK';
+SELECT * FROM EMP WHERE (DEPTNO = 10 OR DEPTNO = 20) OR JOB = 'CLERK';
+
+
+--퀴즈 3 수당이 존재하지 않는 사원 중에서 직무가 'SALESMAN'인 사원 조회하기
+SELECT * FROM emp WHERE COMM IS NULL AND JOB = 'SALESMAN';
+
+
+--퀴즈 4 직무가 'CLEARK'인 사원 중 급여가 1000 이상 1500 이하인 사원 조회하기
+SELECT * FROM emp WHERE JOB = 'CLERK'
+AND
+SAL BETWEEN 1000 AND 1500;
+
+
+
+
+--퀴즈 5 이름에 'DA'을 포함하는 사원 이름과 직무를 조회하기
+
+SELECT ENAME, JOB FROM EMP 
+WHERE ENAME LIKE '%DA%';
+
+
+
+
+--퀴즈 6. 부서번호가 10번인 사원 중, 직무가 'MANAGER'가 아닌 사원 조회하기
+단 MGR이 NULL인 사람도 포함하기
+시도 1. SELECT * FROM EMP WHERE DEPTNO = '10';
+AND
+JOB != 'MANGER'; -- 따옴표를 숫자에 씀. 매니저 오타. ; 를 첫 쿼리에 붙임 
+
+SELECT * FROM EMP WHERE DEPTNO = 10 
+AND 
+JOB != 'MANAGER';
+
+
+SELECT * FROM EMP WHERE DEPTNO = 10 
+AND (JOB != 'MANAGER'; OR MGR IS NULL);
+
+
