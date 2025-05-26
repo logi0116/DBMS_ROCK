@@ -31,7 +31,7 @@ WHERE EMPNO =
 --서브쿼리 활용
 
 CREATE TABLE DEPT_TEMP2 AS SELECT * FROM DEPT;
-
+rollback;
 SELECT * FROM DEPT_TEMP2;
 
 --퀴즈 1. DEPT_TEMP2 테이블에서 부서번호가 20인 행의 지역을 'JEJUE'로 수정하시오.
