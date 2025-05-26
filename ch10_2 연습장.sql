@@ -1,0 +1,66 @@
+--데이터에 있는 데이터 수정하기
+
+--기본 문법
+UPDATE 테이블명 set 수정할 컬럼명 = 수정할 값 where 조건절;
+
+--복사한 테이블에서 연습하기
+--EMP > EMP_COPY 테이블 복사
+CREATE TABLE EMP_COPY AS SELECT * FROM EMP;
+SELECT * FROM EMP_COPY;
+
+-- 전체수정
+UPDATE EMP_COPY SET SAL = 1000;
+
+--반영, 저장
+COMMIT;
+--롤백, 되돌리기     
+ROLLBACK;
+
+--서브쿼리 활용
+UPDATE EMP_COPY SET SAL = 2000
+WHERE EMPNO IN (SELECT EMPNO FROM EMP WHERE ENAME = 30);
+
+
+--서브쿼리 활용
+
+SELECT DEPTNO FROM EMP WHERE ENAME = 'ALLEN'; --30
+UPDATE EMP_COPY SET SAL = 2000
+WHERE EMPNO = 
+(SELECT EMPNO FROM EMP WHERE ENAME = 'ALLEN');
+    
+--서브쿼리 활용
+
+CREATE TABLE DEPT_TEMP2 AS SELECT * FROM DEPT;
+
+SELECT * FROM DEPT_TEMP2;
+
+--퀴즈 1. DEPT_TEMP2 테이블에서 부서번호가 20인 행의 지역을 'JEJUE'로 수정하시오.
+
+
+
+UPDATE DEPT_TEMP2 SET LOC = 'JEJU' WHERE DEPTNO = 20;
+SELECT * FROM DEPT;
+
+
+
+-- 퀴즈2, DEPT_TEMP2 테이블의 전체 지역을 'SEOUL'로 수정하시오.
+UPDATE DEPT_TEMP2 SET LOC = 'SEOUL';
+SELECT * FROM DEPT_TEMP2;
+
+
+-- 퀴즈3 직책이 'MANAGER'인 사원의 급여를 5000으로 수정하시오.
+--EMP_COPY 테이블 이용하기
+UPDATE EMP_COPY SET SAL = 5000 WHERE JOB = 'MANAGER';
+SELECT * FROM EMP_COPY;
+
+--자체 퀴즈 4. 직책이 'CLERK'인 사원의 급여를 5000으로 수정하고, 
+--사원명, 직업, 고용날짜, 급여, 지역명을 함께 출력하되 지역명을 JOIN을 이용해 출력하시오.
+
+UPDATE EMP_COPY SET SAL = 5000 WHERE JOB = 'CLERK';
+SELECT E.EMPNO, E.ENAME, E.JOB, E.HIREDATE, E.SAL, D.LOC
+FROM EMP_COPY E
+JOIN DEPT D ON E.DEPTNO = D.DEPTNO;
+
+
+
+

@@ -38,7 +38,7 @@ select *  from dept;
 
 -- 퀴즈 1
 -- dept 테이블에 (99, 'AI팀', 'JEJU') 데이터를 추가하시오.
-insert into dept ( deptno as "유니크", dname, loc) values ( 99,'AI팀','JEJU' ); 
+insert into dept ( deptno, dname, loc) values ( 99,'AI팀','JEJU' ); 
 SELECT * FROM dept;
 
 
@@ -77,8 +77,56 @@ create table EMP_TEMP_30 AS SELECT * FROM EMP WHERE 1=0;
 create table EMP_TEMP_40 AS SELECT * FROM EMP WHERE 1=1;
 
 
+
 insert into EMP_TEMP_30
 select * from EMP where deptno = 30;
 --emp_temp_30테이블 단순 확인
 select * from EMP_TEMP_30;
 select * from EMP_TEMP_40;
+
+
+
+
+
+
+퀴즈: 학생들의 과목별 점수가 저장된 테이블이 있습니다.
+
+STUDENT	KOR	ENG	MATH
+홍길동	90	80	70
+이순신	85	95	90
+위와 같은 테이블(score)에 대해,
+각 학생의 점수를 아래와 같이 "세로(행)"로 변환하는 UNPIVOT 쿼리를 작성하세요.
+
+STUDENT	SUBJECT	SCORE
+홍길동	KOR	90
+홍길동	ENG	80
+홍길동	MATH	70
+이순신	KOR	85
+이순신	ENG	95
+이순신	MATH	90
+
+
+--UNPIVOT 쿼리
+
+select * from score
+UNPIVOT (
+    점수 FOR 과목 IN (KOR, ENG, MATH)
+);
+
+
+-- score 테이블 생성
+CREATE TABLE score (
+    student VARCHAR2(20),
+    KOR NUMBER,
+    ENG NUMBER,
+    MATH NUMBER
+);
+
+-- 데이터 입력
+INSERT INTO score VALUES ('홍길동', 90, 80, 70);
+INSERT INTO score VALUES ('이순신', 85, 95, 90);
+
+select * from score
+UNPIVOT (
+    점수 FOR 과목 IN (KOR, ENG, MATH)
+);
