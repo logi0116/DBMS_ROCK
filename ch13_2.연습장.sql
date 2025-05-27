@@ -190,10 +190,38 @@ select *
 select *
   from user_indexes
  where table_name = 'EMP_INDEX_TEST';
+-- 예시 결과:
+-- INDEX_NAME               TABLE_NAME        UNIQUENESS   STATUS   ...
+-- ----------------------- ---------------   ----------   ------   ...
+-- EMP_INDEX_TEST_ENAME_IDX EMP_INDEX_TEST   NONUNIQUE    VALID    ...
+-- EMP_INDEX_TEST_JOB_DEPTNO_IDX EMP_INDEX_TEST NONUNIQUE VALID ...
+-- SYS_C0012345            EMP_INDEX_TEST    UNIQUE       VALID    ...
+--
+-- 의미:
+-- INDEX_NAME: 인덱스의 이름
+-- TABLE_NAME: 인덱스가 속한 테이블명
+-- UNIQUENESS: UNIQUE 인덱스 여부 (UNIQUE/NONUNIQUE)
+-- STATUS: 인덱스의 상태(VALID: 정상)
+-- 기타 컬럼: 인덱스 타입, 생성일 등
 
 select *
   from user_ind_columns
  where table_name = 'EMP_INDEX_TEST';
+-- 예시 결과:
+-- INDEX_NAME               COLUMN_NAME   COLUMN_POSITION ...
+-- ----------------------- ------------ --------------- ...
+-- EMP_INDEX_TEST_ENAME_IDX ENAME        1               ...
+-- EMP_INDEX_TEST_JOB_DEPTNO_IDX JOB     1               ...
+-- EMP_INDEX_TEST_JOB_DEPTNO_IDX DEPTNO  2               ...
+-- SYS_C0012345            EMPNO         1               ...
+--
+-- 의미:
+-- INDEX_NAME: 인덱스 이름
+-- COLUMN_NAME: 인덱스에 포함된 컬럼명
+-- COLUMN_POSITION: 인덱스 내 컬럼의 순서(복합 인덱스일 때 중요)
+-- 기타: DESCEND(정렬방향) 등
+--
+-- 이 결과를 통해 어떤 인덱스가 어떤 컬럼에, 어떤 순서로 생성되어 있는지 확인할 수 있습니다.
 
 -- =============================
 -- 11. 정리: 인덱스 삭제 (테스트 후 정리)
